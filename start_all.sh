@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ruta al backend y al frontend
-BACKEND_DIR="./OMEGLE-MED-API-REST"
+BACKEND_DIR="./omegle-med-api-rest"
 FRONTEND_DIR="./omegle-med-app-web"
 
 # Verificar si "concurrently" está instalado; si no, instalarlo
