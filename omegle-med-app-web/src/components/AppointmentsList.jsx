@@ -7,7 +7,7 @@ const AppointmentsList = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await apiClient.get('/appointments');
+        const response = await apiClient.get('appointment/');
         setAppointments(response.data);
       } catch (error) {
         console.error("Error al obtener citas", error);

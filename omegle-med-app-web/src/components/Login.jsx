@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import apiClient from '../utils/apiClient';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -51,13 +52,15 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await apiClient.post('/users/login', { email, password });
+      const response = await apiClient.post('users/login', { email, password });
       localStorage.setItem('token', response.data.token); // Guarda el token
-      // Redirigir o mostrar mensaje de éxito
+      navigate('/'); // Redirige a /home
     } catch (err) {
       setError('Credenciales incorrectas');
     }
