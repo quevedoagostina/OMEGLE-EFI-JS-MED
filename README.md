@@ -57,7 +57,7 @@ omegle-med-api-rest
 2. Cambia el método de autenticación para el usuario `root` si es necesario:
 
     ```sql
-    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'tu_nueva_contraseña';
+    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'tu_contraseña';
     FLUSH PRIVILEGES;
     ```
 
