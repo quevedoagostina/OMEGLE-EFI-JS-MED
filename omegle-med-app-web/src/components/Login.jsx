@@ -11,7 +11,7 @@ const LoginContainer = styled.div`
   justify-content: center;
   height: 100vh;
   background-color: #333;
-  color: #fff;
+  color: #ffff;
 `;
 
 const Form = styled.form`
