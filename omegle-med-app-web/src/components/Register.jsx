@@ -1,59 +1,13 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import apiClient from '../utils/apiClient';
-
-// Estilos para el contenedor del formulario de registro
-const RegisterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #fbe9e7;
-  color: #333;
-`;
-
-// Estilos para el formulario
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  max-width: 300px;
-  width: 100%;
-`;
-
-// Estilos para los campos de entrada
-const Input = styled.input`
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 1em;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-`;
-
-// Estilos para el botón de enviar
-const Button = styled.button`
-  padding: 10px;
-  background-color: #f06292;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1em;
-  margin-top: 10px;
-
-  &:hover {
-    background-color: #d81b60;
-  }
-`;
-
-const Message = styled.p`
-  color: ${(props) => (props.success ? 'green' : 'red')};
-`;
+import { useNavigate } from 'react-router-dom';
+import styles from './Register.module.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -67,35 +21,54 @@ const Register = () => {
     }
   };
 
+  // Función para navegar al home sin completar el registro
+  const goToHome = () => {
+    navigate('/');
+  };
+
   return (
-    <RegisterContainer>
+    <div className={styles.registerContainer}>
       <h2>Registro</h2>
-      <Form onSubmit={handleRegister}>
-        <Input
+      <form className={styles.form} onSubmit={handleRegister}>
+        <input
           type="text"
+          className={styles.input}
           placeholder="Nombre completo"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           required
         />
-        <Input
+        <input
           type="email"
+          className={styles.input}
           placeholder="Correo electrónico"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           required
         />
-        <Input
+        <input
           type="password"
+          className={styles.input}
           placeholder="Contraseña"
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           required
         />
-        <Button type="submit">Registrar</Button>
-      </Form>
-      {message && <Message success={isSuccess}>{message}</Message>}
-    </RegisterContainer>
+        <button type="submit" className={styles.button}>
+          Registrar
+        </button>
+      </form>
+      {message && (
+        <p className={`${styles.message} ${isSuccess ? styles.success : ''}`}>
+          {message}
+        </p>
+      )}
+      
+      {/* Botón adicional para volver al home */}
+      <button onClick={goToHome} className={styles.homeButton}>
+        Volver al Home
+      </button>
+    </div>
   );
 };
 

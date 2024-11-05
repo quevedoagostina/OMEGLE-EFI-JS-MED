@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize');
 
 // Conexión sin especificar una base de datos concreta
-const sequelize = new Sequelize('', 'root', 'ssss', {
-    host: 'localhost',
+const sequelize = new Sequelize('', 'root', 'Realmadrid14!', {
+    host: '127.0.0.1',
     dialect: 'mysql',
 });
 

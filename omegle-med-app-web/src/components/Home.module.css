@@ -1,0 +1,87 @@
+/* Home.module.css */
+
+.homeContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #000000;
+  border-bottom: 2px solid #000000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 98%;
+  top: 0;
+  z-index: 1000;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  margin: 0;
+}
+
+.homeDescription {
+  font-size: 1rem;
+  color: #000000;
+  display: none;
+}
+
+.navLinks {
+  display: flex;
+  gap: 12px;
+}
+
+.card {
+  font-size: 1rem;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 12px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card:hover {
+  background-color: #0056b3;
+  color: #ffffff;
+}
+
+/* Estilos para las tarjetas de slogans */
+.sloganContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 100px; /* Ajuste para evitar la barra fija */
+  padding: 20px;
+}
+
+.sloganCard {
+  width: 200px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 1rem;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer; /* Cambia el cursor a una mano */
+}
+
+.sloganCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: #007bff; /* Cambia el color de fondo a azul */
+  color: #ffffff; /* Cambia el color del texto a blanco */
+}
+
+/* Estilo para el pie de página */
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #555;
+  font-size: 0.9rem;
+}

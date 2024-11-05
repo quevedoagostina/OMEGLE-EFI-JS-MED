@@ -3,6 +3,7 @@ import apiClient from '../utils/apiClient';
 
 const AppointmentsList = () => {
   const [appointments, setAppointments] = useState([]);
+  const [doctors, setDoctors] = useState([]); // Estado para la lista de doctores
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -14,7 +15,17 @@ const AppointmentsList = () => {
       }
     };
 
+    const fetchDoctors = async () => {
+      try {
+        const response = await apiClient.get('doctors/');
+        setDoctors(response.data);
+      } catch (error) {
+        console.error("Error al obtener doctores", error);
+      }
+    };
+
     fetchAppointments();
+    fetchDoctors();
   }, []);
 
   return (
@@ -23,6 +34,15 @@ const AppointmentsList = () => {
       <ul>
         {appointments.map((appointment) => (
           <li key={appointment.id}>{appointment.details}</li>
+        ))}
+      </ul>
+
+      <h2>Lista de Doctores</h2>
+      <ul>
+        {doctors.map((doctor) => (
+          <li key={doctor.id}>
+            Nombre: {doctor.name} - Especialidad: {doctor.specialty}
+          </li>
         ))}
       </ul>
     </div>

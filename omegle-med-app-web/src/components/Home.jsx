@@ -1,46 +1,38 @@
-// src/components/Home.jsx
 import React from 'react';
+import styles from './Home.module.css';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  color: #fff;
-  background-color: #282c34;
-  font-family: Arial, sans-serif;
-`;
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: #61dafb;
-`;
-
-const NavLinks = styled.div`
-  margin-top: 20px;
-  a {
-    margin: 0 15px;
-    color: #61dafb;
-    text-decoration: none;
-    font-size: 1.2rem;
-  }
-`;
 
 const Home = () => {
   return (
-    <HomeContainer>
-      <Title>Bienvenido a Omegle Med</Title>
-      <p>Tu plataforma de gestión de turnos médicos</p>
-      <NavLinks>
-        <Link to="/login">Iniciar Sesión</Link>
-        <Link to="/register">Registrarse</Link>
-        <Link to="/appointments">Agendar Turno</Link>
-      </NavLinks>
-    </HomeContainer>
+    <div>
+      <div className={styles.homeContainer}>
+        <h1 className={styles.title}>Bienvenido a Omegle Med</h1>
+        <p className={styles.homeDescription}>Tu plataforma de gestión de turnos médicos</p>
+        <div className={styles.navLinks}>
+          <Link to="/login" className={styles.card}>Iniciar Sesión</Link>
+          <Link to="/register" className={styles.card}>Registrarse</Link>
+          <Link to="/appointments" className={styles.card}>Agendar Turno</Link>
+        </div>
+      </div>
+
+      {/* Sección de tarjetas con slogans */}
+      <div className={styles.sloganContainer}>
+        <div className={styles.sloganCard}>
+          <p>Atención médica a solo un clic</p>
+        </div>
+        <div className={styles.sloganCard}>
+          <p>Reserva tu turno en segundos</p>
+        </div>
+        <div className={styles.sloganCard}>
+          <p>Confianza y calidad en cada consulta</p>
+        </div>
+      </div>
+
+      
+    </div>
   );
 };
 
 export default Home;
+
+
