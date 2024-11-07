@@ -1,0 +1,156 @@
+/* Estilos para la página de creación de citas */
+body.appointments-page {
+  background-color: #f7fafd; /* Fondo aún más claro y suave */
+  font-family: 'Roboto', sans-serif; /* Una tipografía moderna y limpia */
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor de citas */
+.appointments-container {
+  background-color: #ffffff; /* Fondo blanco para resaltar el contenido */
+  padding: 30px;
+  border-radius: 15px; /* Bordes más redondeados para suavizar la apariencia */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
+  max-width: 900px; /* Ancho máximo para contenedores más grandes */
+  margin: 40px auto;
+  transition: box-shadow 0.3s ease-in-out; /* Transición suave para sombra */
+}
+
+.appointments-container:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Efecto de sombra al pasar el mouse */
+}
+
+/* Título de la página */
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3e50; /* Un color oscuro suave para los títulos */
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Campos de selección y entrada */
+select,
+input[type="date"] {
+  width: 100%;
+  max-width: 450px; /* Ajuste para que no ocupen todo el ancho */
+  padding: 12px 15px;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #dde4e9;
+  background-color: #f1f5f9; /* Fondo claro pastel para los campos */
+  font-size: 1rem;
+  color: #495057; /* Color de texto más oscuro para contraste */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+select:focus,
+input[type="date"]:focus {
+  border-color: #6c8b9d; /* Borde de enfoque sutil y relajante */
+  box-shadow: 0 0 5px rgba(108, 139, 157, 0.5); /* Suave sombra al enfocar */
+}
+
+/* Botón de acción */
+button {
+  width: 100%;
+  max-width: 450px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #6c8b9d; /* Color azul grisáceo suave */
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  background-color: #5a7584; /* Cambio a un tono ligeramente más oscuro */
+  transform: translateY(-2px); /* Efecto de elevación al pasar el mouse */
+}
+
+button:focus {
+  outline: 4px solid #99c0d4; /* Contorno de enfoque sutil */
+}
+
+/* Mensajes de error */
+.error-message {
+  color: #f44336; /* Rojo para los errores */
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* Estilo para la lista de citas */
+.appointments-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+  background-color: #f1f5f9; /* Un fondo claro y suave */
+  border-radius: 10px; /* Bordes redondeados para armonizar */
+}
+
+.appointment-item {
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.appointment-item:hover {
+  transform: translateY(-5px); /* Elevación ligera al pasar el mouse */
+}
+
+.appointment-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: #495057; /* Color de texto oscuro pero suave */
+}
+
+.appointment-item .details-button {
+  background-color: #6c8b9d;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.appointment-item .details-button:hover {
+  background-color: #5a7584;
+}
+
+/* Estilo responsive para dispositivos pequeños */
+@media (max-width: 768px) {
+  .appointments-container {
+    padding: 20px;
+    max-width: 100%;
+    margin: 20px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+
+  select, input[type="date"] {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+}

@@ -2,19 +2,18 @@
 
 :root {
   /* Configuración de fuentes y colores básicos */
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   /* Variables de color para temas oscuro y claro */
-  --color-primary: #646cff;
-  --color-primary-hover: #535bf2;
-  --color-text-light: rgba(255, 255, 255, 0.87);
-  --color-text-dark: #213547;
-  --color-background-dark: #242424;
-  --color-background-light: #ffffff;
-  --color-button-dark: #1a1a1a;
-  --color-button-light: #f9f9f9;
+  --color-primary: #6c8b9d; /* Un azul suave y profesional */
+  --color-primary-hover: #5a7584; /* Tono ligeramente más oscuro al pasar el mouse */
+  --color-text-dark: #495057; /* Gris oscuro para texto en fondos claros */
+  --color-background-dark: #f7fafd; /* Fondo claro y relajante */
+  --color-background-light: #ffffff; /* Fondo blanco para contenido */
+  --color-button-dark: #6c8b9d; /* Botón en azul grisáceo */
+  --color-button-light: #f1f5f9; /* Fondo claro para los botones en el tema claro */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,7 +28,6 @@ body {
   min-height: 50vh;
   background-color: var(--color-background-dark);
   color: var(--color-text-light);
-  background-image: url('assets/homeimg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -90,11 +88,12 @@ button:focus-visible {
   }
 
   a:hover {
-    color: #747bff;
+    color: #6c8b9d; /* Un azul más suave para el hover en el tema claro */
   }
 
   button {
     background-color: var(--color-button-light);
+    color: #495057; /* Texto en gris oscuro para contraste */
   }
 }
 
@@ -104,8 +103,8 @@ footer {
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background-color: #f8f9fa;
-  color: #6c757d;
+  background-color: #f1f5f9; /* Fondo suave y claro */
+  color: #6c757d; /* Gris suave para el texto del pie de página */
   font-size: 0.9rem;
   border-top: 1px solid #e7e7e7;
   position: fixed; /* Fijo en la parte inferior */
