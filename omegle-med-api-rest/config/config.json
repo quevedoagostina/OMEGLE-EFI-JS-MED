@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "Realmadrid14!",
-    "database": "omegle_med",
+    "password": "ssss",
+    "database": "omegle",
     "host": "127.0.0.1",
     "port": "3306", 
     "dialect": "mysql"

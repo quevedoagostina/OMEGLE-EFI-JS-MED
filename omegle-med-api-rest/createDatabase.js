@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 // Conexión sin especificar una base de datos concreta
-const sequelize = new Sequelize('', 'root', 'Realmadrid14!', {
+const sequelize = new Sequelize('', 'root', 'ssss', {
     host: '127.0.0.1',
     dialect: 'mysql',
 });
@@ -9,7 +9,7 @@ const sequelize = new Sequelize('', 'root', 'Realmadrid14!', {
 async function createDatabase() {
     try {
         // Ejecutar una consulta SQL para crear la base de datos
-        await sequelize.query('CREATE DATABASE omegle_med;');
+        await sequelize.query('CREATE DATABASE omegle;');
         console.log('Base de datos creada exitosamente.');
     } catch (error) {
         console.error('Error al crear la base de datos:', error);
