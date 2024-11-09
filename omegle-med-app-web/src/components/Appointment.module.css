@@ -94,20 +94,17 @@ button:focus {
   list-style: none;
   padding: 0;
   margin-top: 2rem;
-  background-color: #f1f5f9; /* Un fondo claro y suave */
-  border-radius: 10px; /* Bordes redondeados para armonizar */
 }
 
 .appointment-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: #ffffff;
   padding: 15px;
   margin-bottom: 1.25rem;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.3s ease;
 }
 
 .appointment-item:hover {
@@ -117,7 +114,8 @@ button:focus {
 .appointment-item p {
   margin: 0;
   font-size: 1rem;
-  color: #495057; /* Color de texto oscuro pero suave */
+  color: #495057;
+  flex-grow: 1; /* Ocupa el espacio disponible */
 }
 
 .appointment-item .details-button {
@@ -154,3 +152,40 @@ button:focus {
     max-width: 100%;
   }
 }
+
+.appointment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.edit-btn,
+.delete-btn {
+  font-size: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  padding: 4px 6px;
+  transition: color 0.2s ease;
+}
+
+.edit-btn:hover {
+  color: #007bff;
+}
+
+.delete-btn:hover {
+  color: #dc3545;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 6px; /* Espacio entre los botones */
+}
+
+

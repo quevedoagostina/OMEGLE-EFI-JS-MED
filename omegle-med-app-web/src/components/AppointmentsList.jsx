@@ -119,14 +119,39 @@ const AppointmentsList = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar esta cita?");
+    if (!confirmDelete) {
+      return; 
+    }
+  
+    try {
+      await apiClient.delete(`appointment/${id}`);
+      setAppointments(appointments.filter(appointment => appointment.id !== id));
+      alert("Cita eliminada con éxito");
+    } catch (error) {
+      console.error("Error al eliminar cita", error);
+      setError("Error al eliminar la cita.");
+    }
+  };
+  
+
+  const handleEdit = (appointment) => {
+    console.log("Editar cita", appointment);
+  };
+
   return (
     <div className="appointments-container">
       <h2>Turnos programados</h2>
       <ul className="appointments-list">
         {appointments.map((appointment) => (
           <li key={appointment.id} className="appointment-item">
-            <p>{appointment.details}</p>
-          </li>
+          <p>{appointment.details}</p>
+          <div className="buttons-container">
+            <button className="edit-btn" onClick={() => handleEdit(appointment)}>✏️</button>
+            <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>❌</button>
+          </div>
+        </li>
         ))}
       </ul>
   
@@ -152,7 +177,6 @@ const AppointmentsList = () => {
       {error && <p className="error-message" style={{ color: isAvailable ? 'green' : 'red' }}>{error}</p>}
     </div>
   );
-  
 };
 
 export default AppointmentsList;
