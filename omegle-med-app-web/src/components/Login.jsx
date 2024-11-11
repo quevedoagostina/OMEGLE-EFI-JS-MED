@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import apiClient from '../utils/apiClient';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+
+
 import styles from './Login.module.css';
 
 const Login = () => {
@@ -8,19 +11,20 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Obtén la función login del contexto
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await apiClient.post('users/login', { email, password });
-      localStorage.setItem('token', response.data.token); // Guarda el token
-      navigate('/Appointments'); // Redirige a /home
+      const { token, user } = response.data; // Asegúrate de que el backend envíe el usuario
+      login(user, token); // Actualiza el estado global de autenticación
+      navigate('/appointments'); // Redirige después de iniciar sesión
     } catch (err) {
       setError('Credenciales incorrectas');
     }
   };
 
-  // Función para navegar al home sin iniciar sesión
   const goToHome = () => {
     navigate('/');
   };
@@ -50,8 +54,7 @@ const Login = () => {
         </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}
-      
-      {/* Botón adicional para volver al home */}
+
       <button onClick={goToHome} className={styles.homeButton}>
         Volver al Home
       </button>

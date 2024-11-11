@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import apiClient from '../utils/apiClient';
 import './Appointment.module.css';
+import './Navbar.module.css';
 
 const AppointmentsList = () => {
   const [appointments, setAppointments] = useState([]);
@@ -146,6 +147,8 @@ const AppointmentsList = () => {
       <ul className="appointments-list">
         {appointments.map((appointment) => (
           <li key={appointment.id} className="appointment-item">
+          <p>{appointment.doctorId}</p>
+          <p>{appointment.date}</p>
           <p>{appointment.details}</p>
           <div className="buttons-container">
             <button className="edit-btn" onClick={() => handleEdit(appointment)}>✏️</button>
