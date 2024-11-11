@@ -14,7 +14,7 @@ const Navbar = () => {
           <>
             <Link to="/appointments" className={styles.link}>Citas</Link>
             {user?.role == 'admin' && (
-              <Link to="/register" className={styles.link}>Registrar Doctor</Link>
+              <Link to="/register_doctor" className={styles.link}>Registrar Doctor</Link>
             )}
             <button onClick={logout} className={styles.logoutButton}>Logout</button>
           </>

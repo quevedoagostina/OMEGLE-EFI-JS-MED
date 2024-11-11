@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import AppointmentsList from './components/AppointmentsList';
+import RegisterDoctor from './components/RegisterDoctor';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/register_doctor" element={<RegisterDoctor />} />
           <Route path="/appointments" element={<AppointmentsList />} />
         </Routes>
       </Router>

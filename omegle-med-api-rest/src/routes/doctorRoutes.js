@@ -5,7 +5,7 @@ const isAdmin = require('../middleware/isAdmin');
 const router = express.Router();
 
 router.get('/', authenticate, getDoctors); // Todos los usuarios autenticados
-router.post('/', authenticate, isAdmin, createDoctor); // Solo admins
+router.post('/create', authenticate, isAdmin, createDoctor); // Solo admins
 router.put('/:id', authenticate, isAdmin, updateDoctor); // Solo admins
 router.delete('/:id', authenticate, isAdmin, deleteDoctor); // Solo admins
 
