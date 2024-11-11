@@ -9,7 +9,8 @@ import Login from './components/Login';
 import Register from './components/Register';
 import AppointmentsList from './components/AppointmentsList';
 import RegisterDoctor from './components/RegisterDoctor';
-
+import DoctorsList from './components/DoctorsList'
+import EditDoctor from './components/EditDoctor';
 
 const App = () => {
   return (
@@ -21,6 +22,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/register_doctor" element={<RegisterDoctor />} />
+          <Route path="/doctors_list" element={<DoctorsList />} />
+          <Route path="/edit_doctor/:id" element={<EditDoctor />} />
           <Route path="/appointments" element={<AppointmentsList />} />
         </Routes>
       </Router>

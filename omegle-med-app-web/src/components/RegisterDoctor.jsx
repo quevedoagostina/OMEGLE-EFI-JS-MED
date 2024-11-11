@@ -16,7 +16,6 @@ const Register = () => {
       setMessage('Doctor Añadido.');
       setIsSuccess(true);
     } catch (err) {
-        console.log(formData)
       setMessage('Error en el registro. Inténtalo de nuevo.');
       setIsSuccess(false);
     }

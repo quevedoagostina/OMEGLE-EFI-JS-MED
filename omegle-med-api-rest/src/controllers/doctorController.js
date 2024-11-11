@@ -10,6 +10,17 @@ exports.getDoctors = async (req, res) => {
     }
 };
 
+// Obtener un médico
+exports.getDoctor = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const doctor = await db.Doctor.findByPk(id);
+        res.status(200).json(doctor);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener la lista de médicos' });
+    }
+};
+
 // Crear un nuevo médico
 exports.createDoctor = async (req, res) => {
     const { name, specialty, userId } = req.body;

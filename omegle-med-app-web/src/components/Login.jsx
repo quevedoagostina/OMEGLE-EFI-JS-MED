@@ -2,25 +2,23 @@ import React, { useState, useContext } from 'react';
 import apiClient from '../utils/apiClient';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-
-
 import styles from './Login.module.css';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // Obtén la función login del contexto
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await apiClient.post('users/login', { email, password });
-      const { token, user } = response.data; // Asegúrate de que el backend envíe el usuario
-      console.log(response)
-      login(user, token); // Actualiza el estado global de autenticación
-      navigate('/'); // Redirige después de iniciar sesión
+      const { token, user } = response.data; 
+      login(user, token);
+      navigate('/');
     } catch (err) {
       setError('Credenciales incorrectas');
     }
