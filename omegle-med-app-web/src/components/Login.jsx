@@ -18,8 +18,9 @@ const Login = () => {
     try {
       const response = await apiClient.post('users/login', { email, password });
       const { token, user } = response.data; // Asegúrate de que el backend envíe el usuario
+      console.log(response)
       login(user, token); // Actualiza el estado global de autenticación
-      navigate('/appointments'); // Redirige después de iniciar sesión
+      navigate('/'); // Redirige después de iniciar sesión
     } catch (err) {
       setError('Credenciales incorrectas');
     }
