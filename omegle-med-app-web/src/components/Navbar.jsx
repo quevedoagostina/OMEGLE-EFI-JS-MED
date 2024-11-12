@@ -10,25 +10,30 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <Link to="/" className={styles.link}>Home</Link>
       <div className={styles.navLinks}>
-        {isAuthenticated ? (
+      {isAuthenticated ? (
+      <>
+        {user?.role === 'user' && (
           <>
             <Link to="/appointments" className={styles.link}>Citas</Link>
-            {user?.role == 'admin' && (
-              <Link to="/register_doctor" className={styles.link}>Registrar Doctor</Link>
-            )}
-            {user?.role === 'doctor' && (
-              <Link to={`/doctor/appointments/${user.id}`} className={styles.link}>
-                Mis Citas
-              </Link>
-            )}
-            <button onClick={logout} className={styles.logoutButton}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className={styles.link}>Login</Link>
-            <Link to="/register" className={styles.link}>Register</Link>
+            <a href="/profile" className={styles.link}>Perfil</a> {/* Added Perfil link */}
           </>
         )}
+        {user?.role === 'admin' && (
+          <Link to="/register_doctor" className={styles.link}>Registrar Doctor</Link>
+        )}
+        {user?.role === 'doctor' && (
+          <Link to={`/doctor/appointments/${user.id}`} className={styles.link}>
+            Mis Citas
+          </Link>
+        )}
+        <button onClick={logout} className={styles.logoutButton}>Logout</button>
+      </>
+    ) : (
+      <>
+        <Link to="/login" className={styles.link}>Login</Link>
+        <Link to="/register" className={styles.link}>Register</Link>
+      </>
+    )}
       </div>
     </nav>
   );

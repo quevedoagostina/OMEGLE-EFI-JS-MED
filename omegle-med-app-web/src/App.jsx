@@ -13,6 +13,7 @@ import DoctorsList from './components/DoctorsList'
 import EditDoctor from './components/EditDoctor';
 import DoctorAppointments from './components/DoctorAppointments';
 import EditAppointment from './components/EditAppointment';
+import Profile from './components/Profile';
 const App = () => {
   return (
     <AuthProvider>
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/appointments" element={<AppointmentsList />} />
           <Route path="/doctor/appointments/:doctorId" element={<DoctorAppointments />} />
           <Route path="/edit_appointment/:id" element={<EditAppointment />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
     </AuthProvider>
