@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import apiClient from '../utils/apiClient';
 import './Appointment.module.css';
 import './Navbar.module.css';
+import { AuthContext } from '../context/AuthContext';
 
 const AppointmentsList = () => {
   const [appointments, setAppointments] = useState([]);
@@ -10,7 +11,23 @@ const AppointmentsList = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [isAvailable, setIsAvailable] = useState(null);
   const [error, setError] = useState('');
-  const patientId = 1; // PATIENT HARCODEADO CUIDADO
+  const [patients, setPatients] = useState([]);
+  const [patient, setPatient] = useState(null);
+  const { user } = useContext(AuthContext);
+  
+  useEffect(() => {
+    if (user && patients.length > 0) { // Aseguramos que 'patients' tiene datos antes de buscar.
+      const foundPatient = patients.find(patient => patient.userId == user.id);
+  
+      if (foundPatient) {
+        console.log('Paciente encontrado:', foundPatient);
+        setPatient(foundPatient); // Establecer el paciente en el estado.
+      } else {
+        console.log('No se encontró el paciente con ese ID.');
+        setError('No se encontró el paciente con ese ID.');
+      }
+    }
+  }, [patients, user]);
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -24,15 +41,26 @@ const AppointmentsList = () => {
 
     const fetchDoctors = async () => {
       try {
-        const response = await apiClient.get('doctors/');
+        const response = await apiClient.get('doctors/list');
         setDoctors(response.data);
       } catch (error) {
         console.error("Error al obtener doctores", error);
       }
     };
 
+    const fetchPatients = async () => {
+      try {
+        const pacientes = await apiClient.get(`/patient/list/`);
+        setPatients(pacientes.data);
+      } catch (error) {
+        console.error('Error al obtener los pacientes', error);
+        setError('Error al cargar los pacientes.');
+      }
+    };
+
     fetchAppointments();
     fetchDoctors();
+    fetchPatients();
   }, []);
 
   const handleDoctorChange = (event) => {
@@ -81,37 +109,39 @@ const AppointmentsList = () => {
   };
 
   const createAppointment = async () => {
+    // Verificar si el paciente está definido antes de continuar
+    if (!patient || !patient.id) {
+      setError('No se ha encontrado el patientId del usuario');
+      return;
+    }
+  
+    const doctorId = parseInt(selectedDoctor, 10);
+  
+    if (isNaN(doctorId)) {
+      setError('El ID del doctor es inválido');
+      return;
+    }
+  
+    const doctor = doctors.find((doc) => doc.id === doctorId);
+  
+    if (!doctor) {
+      setError('Doctor no encontrado');
+      return;
+    }
+  
+    const details = `Cita con el Dr. ${doctor.name} (${doctor.specialty}) en la fecha: ${selectedDate}`;
+  
+    const newAppointment = {
+      doctorId,
+      patientId: patient.id,
+      date: `${selectedDate}T00:00:00`,
+      details,
+      status: 'programada',
+    }; 
+  
     try {
-      if (!patientId) {
-        setError('No se ha encontrado el patientId del usuario');
-        return;
-      }
-  
-      const doctorId = parseInt(selectedDoctor, 10);
-  
-      if (isNaN(doctorId)) {
-        setError('El ID del doctor es inválido');
-        return;
-      }
-  
-      const doctor = doctors.find((doc) => doc.id === doctorId);
-  
-      if (!doctor) {
-        setError('Doctor no encontrado');
-        return;
-      }
-  
-      const details = `Cita con el Dr. ${doctor.name} (${doctor.specialty}) en la fecha: ${selectedDate}`;
-  
-      const newAppointment = {
-        doctorId,
-        patientId,
-        date: `${selectedDate}T00:00:00`,
-        details,  
-        status: 'programada'
-      };
-  
-      const response = await apiClient.post('appointment/', newAppointment);
+      const response = await apiClient.post('appointment/create', newAppointment);
+      console.log(response);
       setAppointments((prevAppointments) => [...prevAppointments, response.data.appointment]);
       setError(response.data.message);
     } catch (error) {
@@ -119,6 +149,7 @@ const AppointmentsList = () => {
       setError('Error al crear la cita.');
     }
   };
+  
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar esta cita?");

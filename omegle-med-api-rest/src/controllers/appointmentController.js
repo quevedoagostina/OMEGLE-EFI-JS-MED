@@ -2,14 +2,22 @@ const db = require('../models');
 
 // Crear nueva cita
 exports.createAppointment = async (req, res) => {
-    const { doctorId, patientId, date, details } = req.body;
+    const { doctorId, patientId, date, details, status } = req.body;
     try {
-        const appointment = await db.Appointment.create({ doctorId, patientId, date, details });
-        res.status(201).json({ message: 'Cita médica creada', appointment });
+      const newAppointment = await db.Appointment.create({
+        doctorId,
+        patientId,
+        date,
+        details,
+        status,
+      });
+      res.status(201).json({ message: 'Cita creada con éxito', appointment: newAppointment });
     } catch (error) {
-        res.status(500).json({ error: 'Error al crear cita médica' });
+      console.error('Error al crear cita:', error);
+      res.status(500).json({ error: 'Error al crear la cita.' });
     }
-};
+  };
+  
 
 // Obtener todas las citas
 exports.getAppointments = async (req, res) => {

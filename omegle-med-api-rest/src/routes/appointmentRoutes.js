@@ -4,7 +4,7 @@ const { createAppointment, getAppointments, updateAppointment, deleteAppointment
 const authenticate = require('../middleware/authenticate');
 const router = express.Router();
 
-router.post('/', authenticate, createAppointment); // Crear nueva cita
+router.post('/create', authenticate, createAppointment); // Crear nueva cita
 router.get('/', authenticate, getAppointments);
 router.get('/edit/:id', authenticate, getAppointments);
 router.get('/doctors/:doctorId', authenticate, getAppointments);
