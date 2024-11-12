@@ -16,6 +16,11 @@ const Navbar = () => {
             {user?.role == 'admin' && (
               <Link to="/register_doctor" className={styles.link}>Registrar Doctor</Link>
             )}
+            {user?.role === 'doctor' && (
+              <Link to={`/doctor/appointments/${user.id}`} className={styles.link}>
+                Mis Citas
+              </Link>
+            )}
             <button onClick={logout} className={styles.logoutButton}>Logout</button>
           </>
         ) : (

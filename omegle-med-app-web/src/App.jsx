@@ -11,7 +11,8 @@ import AppointmentsList from './components/AppointmentsList';
 import RegisterDoctor from './components/RegisterDoctor';
 import DoctorsList from './components/DoctorsList'
 import EditDoctor from './components/EditDoctor';
-
+import DoctorAppointments from './components/DoctorAppointments';
+import EditAppointment from './components/EditAppointment';
 const App = () => {
   return (
     <AuthProvider>
@@ -25,6 +26,8 @@ const App = () => {
           <Route path="/doctors_list" element={<DoctorsList />} />
           <Route path="/edit_doctor/:id" element={<EditDoctor />} />
           <Route path="/appointments" element={<AppointmentsList />} />
+          <Route path="/doctor/appointments/:doctorId" element={<DoctorAppointments />} />
+          <Route path="/edit_appointment/:id" element={<EditAppointment />} />
         </Routes>
       </Router>
     </AuthProvider>

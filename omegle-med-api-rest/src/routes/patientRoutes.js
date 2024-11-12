@@ -5,7 +5,7 @@ const authenticate = require('../middleware/authenticate');
 const isAdmin = require('../middleware/isAdmin');
 const router = express.Router();
 
-router.get('/', authenticate, isAdmin, getPatients); // Solo admins
+router.get('/list', authenticate, getPatients); // Solo admins
 router.post('/', authenticate, isAdmin, createPatient); // Solo admins
 router.put('/:id', authenticate, isAdmin, updatePatient); // Solo admins
 router.delete('/:id', authenticate, isAdmin, deletePatient); // Solo admins

@@ -43,7 +43,7 @@ const EditDoctor = () => {
     try {
       await apiClient.put(`doctors/${id}`, doctor);
       alert('Doctor actualizado con éxito');
-      navigate('/doctors'); // Redirige a la lista de doctores
+      navigate('/doctors_list'); // Redirige a la lista de doctores
     } catch (error) {
       console.error('Error al actualizar el doctor', error);
       setError('Error al actualizar el doctor');

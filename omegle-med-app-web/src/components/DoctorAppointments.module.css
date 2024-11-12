@@ -1,0 +1,80 @@
+/* DoctorAppointments.module.css */
+
+/* Container styling for the main appointments section */
+.appointmentsContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading style */
+  .appointmentsContainer h2 {
+    color: #333;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  /* Error message styling */
+  .error {
+    color: #d9534f;
+    background-color: #f9e6e6;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  /* Appointment item styling */
+  .appointmentItem {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  
+  /* Appointment text (date, patient) styling */
+  .appointmentItem p {
+    color: #555;
+    margin: 5px 0;
+    font-size: 1em;
+  }
+  
+  /* Button styling */
+  .cancelButton,
+  .editButton {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .cancelButton {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+  }
+  
+  .cancelButton:hover {
+    background-color: #c9302c;
+  }
+  
+  .editButton {
+    background-color: #5bc0de;
+    color: #fff;
+    border: none;
+  }
+  
+  .editButton:hover {
+    background-color: #31b0d5;
+  }
+  
