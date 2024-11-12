@@ -14,6 +14,8 @@ const Home = () => {
   const goToAppointments = () => {
     if (user?.role === 'user') {
       navigate('/appointments');
+    } else if (user?.role === 'admin') {
+        navigate(`/appointments`);
     } else if (user?.role === 'doctor') {
       navigate(`/doctor/appointments/${user.id}`);
     } else {
@@ -23,13 +25,10 @@ const Home = () => {
 
   return (
     <div>
-      {/* Sección de tarjetas con slogans */}
       <div className={styles.sloganContainer}>
         <button onClick={goDocsList} className={styles.sloganCard}>
           <p>Nuestros Profesionales</p>
         </button>
-
-        {/* Condicional para el botón basado en el rol */}
         <button onClick={goToAppointments} className={styles.sloganCard}>
           <p>Reserva tu turno en segundos</p>
         </button>
