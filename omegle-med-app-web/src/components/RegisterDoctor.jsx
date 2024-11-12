@@ -20,7 +20,6 @@ const Register = () => {
         userId: doctorId,
       }
       await apiClient.post('/doctors/create', defaultDoctor);
-      console.log(`Doctor registrado con ID: ${doctorId}`);
       setMessage('Doctor Añadido.');
       setIsSuccess(true);
     } catch (err) {

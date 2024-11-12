@@ -4,25 +4,33 @@ import styles from './DoctorAppointments.module.css';
 
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
-  const [patients, setPatients] = useState([]); // Estado para almacenar pacientes
+  const [patients, setPatients] = useState([]);
+  const [doctor, setDoctor] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const currentUrl = window.location.href;
-    const doctorId = parseInt(currentUrl.split('/').pop(), 10);
+    const userId = parseInt(currentUrl.split('/').pop(), 10);
 
-    if (!doctorId) {
+    if (!userId) {
       setError('No se pudo obtener el ID del doctor de la URL.');
       return;
     }
 
-    const fetchAppointments = async () => {
+    const fetchDoctors = async () => {
       try {
-        const response = await apiClient.get(`/appointment/doctors/${doctorId}`);
-        setAppointments(response.data);
+        const response = await apiClient.get('doctors/list');
+        const doctors = response.data;
+        const foundDoctor = doctors.find((doctor) => doctor.userId === userId);
+
+        if (foundDoctor) {
+          setDoctor(foundDoctor);
+        } else {
+          console.log('No se encontró el doctor con el ID:', userId);
+        }
       } catch (error) {
-        console.error('Error al obtener las citas', error);
-        setError('Error al cargar las citas.');
+        console.error("Error al obtener doctores", error);
+        setError('Error al cargar los doctores.');
       }
     };
 
@@ -36,15 +44,37 @@ const DoctorAppointments = () => {
       }
     };
 
-    fetchAppointments();
+    fetchDoctors();
     fetchPatients();
   }, []);
+
+  useEffect(() => {
+    if (!doctor) return;
+
+    const fetchAppointments = async () => {
+      try {
+        const response = await apiClient.get(`/appointment/doctors/${doctor.id}`);
+        const allAppointments = response.data;
+        const filteredAppointments = allAppointments.filter((appt) => {
+          return parseInt(appt.doctorId, 10) === parseInt(doctor.id, 10);
+        });
+        console.log("Filtered Appointments:", filteredAppointments);
+        setAppointments(filteredAppointments);
+      } catch (error) {
+        console.error('Error al obtener las citas', error);
+        setError('Error al cargar las citas.');
+      }
+    };
+    
+
+    fetchAppointments();
+  }, [doctor]);
 
   const handleCancelAppointment = async (appointmentId) => {
     const confirmCancel = window.confirm(
       "¿Está seguro de que quiere cancelar la cita? Se le avisará al paciente."
     );
-  
+
     if (confirmCancel) {
       try {
         await apiClient.delete(`/appointment/${appointmentId}`);
@@ -56,13 +86,11 @@ const DoctorAppointments = () => {
       }
     }
   };
-  
 
   const handleEditAppointment = (appointmentId) => {
     window.location.href = `/edit_appointment/${appointmentId}`;
   };
 
-  // Encuentra el nombre del paciente por su ID
   const getPatientName = (patientId) => {
     const patient = patients.find((p) => p.id === patientId);
     return patient ? patient.name : 'Paciente no encontrado';

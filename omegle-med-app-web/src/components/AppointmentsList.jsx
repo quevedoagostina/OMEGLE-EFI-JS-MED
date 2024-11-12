@@ -151,7 +151,6 @@ const AppointmentsList = () => {
 
     try {
       const response = await apiClient.post('appointment/create', newAppointment);
-      console.log(response);
       setAppointments((prevAppointments) => [...prevAppointments, response.data.appointment]);
       setError(response.data.message);
     } catch (error) {

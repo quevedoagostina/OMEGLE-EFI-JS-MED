@@ -14,7 +14,6 @@ const PerfilDoctor = () => {
   useEffect(() => {
     if (user && doctors.length > 0) {
       const foundDoctor = doctors.find(doctor => doctor.userId == user.id);
-      console.log(user, doctors)
       if (foundDoctor) setDoctor(foundDoctor);
       else setError('No se encontró el doctor con ese ID.');
     }
@@ -24,7 +23,6 @@ const PerfilDoctor = () => {
     const fetchDoctors = async () => {
       try {
         const response = await apiClient.get(`/doctors/list/`);
-        console.log(response.data)
         setDoctors(response.data);
       } catch (error) {
         console.error('Error al obtener los doctores', error);
