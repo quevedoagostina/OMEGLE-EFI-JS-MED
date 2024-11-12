@@ -63,7 +63,7 @@ const EditAppointment = () => {
         <label htmlFor="details">Detalle</label>
         <input
           id="details"
-          name="details"  // Corrected name to "details"
+          name="details"
           value={appointment.details}
           onChange={handleChange}
           required

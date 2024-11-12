@@ -13,6 +13,9 @@ const AppointmentsList = () => {
   const [error, setError] = useState('');
   const [patients, setPatients] = useState([]);
   const [patient, setPatient] = useState(null);
+  const [editingAppointment, setEditingAppointment] = useState(null);
+  const [editDate, setEditDate] = useState('');
+  const [editDetails, setEditDetails] = useState('');
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -25,13 +28,12 @@ const AppointmentsList = () => {
         setError('Error al cargar los pacientes.');
       }
     };
-  
     fetchPatients();
   }, []);
-  
+
   useEffect(() => {
     if (user && patients.length > 0) {
-      const foundPatient = patients.find(patient => patient.userId === user.id);
+      const foundPatient = patients.find((patient) => patient.userId === user.id);
       if (foundPatient) {
         setPatient(foundPatient);
       } else {
@@ -39,7 +41,7 @@ const AppointmentsList = () => {
       }
     }
   }, [patients, user]);
-  
+
   useEffect(() => {
     const fetchAppointments = async () => {
       if (patient) {
@@ -51,14 +53,12 @@ const AppointmentsList = () => {
           );
           setAppointments(filteredAppointments);
         } catch (error) {
-          console.error("Error al obtener citas", error);
+          console.error('Error al obtener citas', error);
         }
       }
     };
-  
     fetchAppointments();
   }, [patient]);
-  
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -66,10 +66,9 @@ const AppointmentsList = () => {
         const response = await apiClient.get('doctors/list');
         setDoctors(response.data);
       } catch (error) {
-        console.error("Error al obtener doctores", error);
+        console.error('Error al obtener doctores', error);
       }
     };
-
     fetchDoctors();
   }, []);
 
@@ -111,15 +110,13 @@ const AppointmentsList = () => {
       } else {
         setError('La fecha seleccionada no está disponible.');
       }
-
     } catch (error) {
-      console.error("Error al obtener disponibilidad", error);
+      console.error('Error al obtener disponibilidad', error);
       setError('Error al obtener disponibilidad.');
     }
   };
 
   const createAppointment = async () => {
-    // Verificar si el paciente está definido antes de continuar
     if (!patient || !patient.id) {
       setError('No se ha encontrado el patientId del usuario');
       return;
@@ -149,75 +146,125 @@ const AppointmentsList = () => {
       status: 'programada',
     };
 
+    console.log(newAppointment)
+
     try {
       const response = await apiClient.post('appointment/create', newAppointment);
       setAppointments((prevAppointments) => [...prevAppointments, response.data.appointment]);
       setError(response.data.message);
     } catch (error) {
-      console.error("Error al crear cita", error);
+      console.error('Error al crear cita', error);
       setError('Error al crear la cita.');
     }
   };
 
-
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar esta cita?");
+    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta cita?');
     if (!confirmDelete) {
       return;
     }
 
     try {
       await apiClient.delete(`appointment/${id}`);
-      setAppointments(appointments.filter(appointment => appointment.id !== id));
-      alert("Cita eliminada con éxito");
+      setAppointments((appointments) => appointments.filter((appointment) => appointment.id !== id));
+      alert('Cita eliminada con éxito');
     } catch (error) {
-      console.error("Error al eliminar cita", error);
-      setError("Error al eliminar la cita.");
+      console.error('Error al eliminar cita', error);
+      setError('Error al eliminar la cita.');
     }
   };
 
-
   const handleEdit = (appointment) => {
-    console.log("Editar cita", appointment);
+    setEditingAppointment(appointment);
+    setEditDate(new Date(appointment.date).toISOString().split('T')[0]);
+    setEditDetails(appointment.details);
+  };
+
+  const saveEdit = async () => {
+    if (!editingAppointment) return;
+
+    const updatedAppointment = {
+      ...editingAppointment,
+      date: `${editDate}T00:00:00`,
+      details: editDetails,
+    };
+
+    try {
+      await apiClient.put(`appointment/update/${editingAppointment.id}`, updatedAppointment);
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((appt) =>
+          appt.id === editingAppointment.id ? updatedAppointment : appt
+        )
+      );
+      setEditingAppointment(null);
+      setError('Cita actualizada con éxito.');
+    } catch (error) {
+      console.error('Error al actualizar la cita', error);
+      setError('No se pudo actualizar la cita.');
+    }
   };
 
   return (
     <div className="appointments-container">
-      <h2>Turnos programados</h2>
-      <ul className="appointments-list">
-        {appointments.map((appointment) => (
-          <li key={appointment.id} className="appointment-item">
-            <p>{appointment.doctorId}</p>
-            <p>{appointment.date}</p>
-            <p>{appointment.details}</p>
-            <div className="buttons-container">
-              <button className="edit-btn" onClick={() => handleEdit(appointment)}>✏️</button>
-              <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>❌</button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {/* Mostrar solo la lista de citas si no se está editando una cita */}
+      {!editingAppointment && (
+        <>
+          <h2>Turnos programados</h2>
+          <ul className="appointments-list">
+            {appointments.map((appointment) => (
+              <li key={appointment.id} className="appointment-item">
+                <p>{appointment.date}</p>
+                <p>{appointment.details}</p>
+                <div className="buttons-container">
+                  <button className="edit-btn" onClick={() => handleEdit(appointment)}>
+                    ✏️
+                  </button>
+                  <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>
+                    ❌
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <h2>Selecciona un Doctor</h2>
+          <select value={selectedDoctor} onChange={handleDoctorChange}>
+            <option value="">Seleccione un doctor</option>
+            {doctors.map((doctor) => (
+              <option key={doctor.id} value={doctor.id}>
+                {doctor.name} - Especialidad: {doctor.specialty}
+              </option>
+            ))}
+          </select>
 
-      <h2>Selecciona un Doctor</h2>
-      <select value={selectedDoctor} onChange={handleDoctorChange}>
-        <option value="">Seleccione un doctor</option>
-        {doctors.map((doctor) => (
-          <option key={doctor.id} value={doctor.id}>
-            {doctor.name} - Especialidad: {doctor.specialty}
-          </option>
-        ))}
-      </select>
+          <h2>Selecciona una Fecha</h2>
+          <input type="date" value={selectedDate} onChange={handleDateChange} />
 
-      <h2>Selecciona una Fecha</h2>
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={handleDateChange}
-      />
+          <button onClick={fetchAvailability}>Ver Disponibilidad</button>
 
-      <button onClick={fetchAvailability}>Ver Disponibilidad</button>
+          {error && <p className="error-message" style={{ color: isAvailable ? 'green' : 'red' }}>{error}</p>}
+        </>
+      )}
 
-      {error && <p className="error-message" style={{ color: isAvailable ? 'green' : 'red' }}>{error}</p>}
+      {/* Mostrar solo el formulario de edición si se está editando una cita */}
+      {editingAppointment && (
+        <div className="edit-form">
+          <h3>Editar Cita</h3>
+          <label>
+            Fecha:
+            <input type="date" value={editDate} onChange={(e) => setEditDate(e.target.value)} />
+          </label>
+          <label>
+            Detalles:
+            <input
+              type="text"
+              value={editDetails}
+              onChange={(e) => setEditDetails(e.target.value)}
+            />
+          </label>
+          <button onClick={saveEdit}>Guardar Cambios</button>
+          <button onClick={() => setEditingAppointment(null)}>Cancelar</button>
+        </div>
+      )}
     </div>
   );
 };
