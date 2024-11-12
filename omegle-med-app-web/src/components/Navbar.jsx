@@ -1,10 +1,17 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useContext(AuthContext); 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(); // Llama a la función logout
+    navigate('/'); // Navega al inicio después del logout
+  };
 
   return (
     <nav className={styles.navbar}>
@@ -26,7 +33,7 @@ const Navbar = () => {
             Mis Citas
           </Link>
         )}
-        <button onClick={logout} className={styles.logoutButton}>Logout</button>
+        <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
       </>
     ) : (
       <>
