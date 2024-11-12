@@ -12,14 +12,18 @@ const EditDoctor = () => {
     specialty: '',
   });
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);  // Estado para manejar el loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
         const response = await apiClient.get(`doctors/edit/${id}`);
-        setDoctor(response.data[0]); // Actualiza el estado con los datos del doctor
-        setLoading(false);  // Cuando la carga se haya completado, cambia el estado de loading
+        const allDoctors = response.data;
+        const filteredDoctor = allDoctors.filter(
+          (doc) => doc.id == id
+        );
+        setDoctor(filteredDoctor[0]);
+        setLoading(false);
       } catch (error) {
         console.error('Error al obtener el doctor', error);
         setError('Error al obtener los datos del doctor');
@@ -41,16 +45,15 @@ const EditDoctor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await apiClient.put(`doctors/${id}`, doctor);
+      await apiClient.put(`doctors/update/${id}`, doctor);
       alert('Doctor actualizado con éxito');
-      navigate('/doctors_list'); // Redirige a la lista de doctores
+      navigate('/doctors_list');
     } catch (error) {
       console.error('Error al actualizar el doctor', error);
       setError('Error al actualizar el doctor');
     }
   };
 
-  // Si los datos aún se están cargando, muestra un mensaje de carga
   if (loading) {
     return <div>Loading...</div>;
   }

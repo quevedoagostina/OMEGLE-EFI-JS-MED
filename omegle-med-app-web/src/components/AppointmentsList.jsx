@@ -146,8 +146,6 @@ const AppointmentsList = () => {
       status: 'programada',
     };
 
-    console.log(newAppointment)
-
     try {
       const response = await apiClient.post('appointment/create', newAppointment);
       setAppointments((prevAppointments) => [...prevAppointments, response.data.appointment]);

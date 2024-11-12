@@ -145,7 +145,6 @@ const DoctorAppointments = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(appointmentId)
       await apiClient.put(`appointment/update/${appointmentId}`, appointment);
       alert('Cita actualizada con éxito');
       setAppointments((prevAppointments) =>

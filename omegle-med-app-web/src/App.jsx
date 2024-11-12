@@ -12,7 +12,6 @@ import RegisterDoctor from './components/RegisterDoctor';
 import DoctorsList from './components/DoctorsList'
 import EditDoctor from './components/EditDoctor';
 import DoctorAppointments from './components/DoctorAppointments';
-import EditAppointment from './components/EditAppointment';
 import Profile from './components/Profile';
 import PerfilDoctor from './components/PerfilDoctor'
 
@@ -31,7 +30,6 @@ const App = () => {
           <Route path="/edit_doctor/:id" element={<EditDoctor />} />
           <Route path="/appointments" element={<AppointmentsList />} />
           <Route path="/doctor/appointments/:doctorId" element={<DoctorAppointments />} />
-          <Route path="/edit_appointment/:id" element={<EditAppointment />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/profile_doctor/:id" element={<PerfilDoctor />} />
         </Routes>
