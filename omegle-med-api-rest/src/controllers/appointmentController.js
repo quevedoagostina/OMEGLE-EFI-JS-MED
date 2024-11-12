@@ -49,7 +49,6 @@ exports.getAppointmentsByDoctor = async (req, res) => {
 // Actualizar estado de una cita
 exports.updateAppointment = async (req, res) => {
     const { id } = req.params;
-    console.log(id)
     const { date, details } = req.body;
     try {
         const appointment = await db.Appointment.findByPk(id);

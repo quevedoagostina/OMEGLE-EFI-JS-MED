@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/register', register); // Registro de usuarios
 router.post('/login', login); // Autenticación de usuarios
-router.get('/profile', authenticate, getProfile); // Obtener el perfil de usuario autenticado
+router.get('/profile/:id', authenticate, getProfile); // Obtener el perfil de usuario autenticado
 
 module.exports = router;

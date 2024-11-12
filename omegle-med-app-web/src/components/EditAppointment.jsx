@@ -37,7 +37,6 @@ const EditAppointment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('ccaa', appointment);
       await apiClient.put(`/appointment/update/${id}`, appointment);
       alert('Cita actualizada con éxito');
       navigate(`/doctor/appointments/${appointment.doctorId}`);

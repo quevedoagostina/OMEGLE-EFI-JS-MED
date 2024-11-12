@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/list', authenticate, getPatients); // Solo admins
 router.post('/', authenticate, isAdmin, createPatient); // Solo admins
-router.put('/:id', authenticate, isAdmin, updatePatient); // Solo admins
+router.put('/update/:id', authenticate, updatePatient); // Solo admins
 router.delete('/:id', authenticate, isAdmin, deletePatient); // Solo admins
 
 module.exports = router;

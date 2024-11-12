@@ -15,7 +15,7 @@ const Navbar = () => {
         {user?.role === 'user' && (
           <>
             <Link to="/appointments" className={styles.link}>Citas</Link>
-            <a href="/profile" className={styles.link}>Perfil</a> {/* Added Perfil link */}
+            <Link to={`/profile/${user.id}`} className={styles.link}>Perfil</Link>
           </>
         )}
         {user?.role === 'admin' && (
