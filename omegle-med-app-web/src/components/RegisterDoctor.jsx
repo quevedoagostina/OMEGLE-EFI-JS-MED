@@ -12,7 +12,15 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await apiClient.post('/users/register', formData);
+      const response = await apiClient.post('/users/register', formData);
+      const doctorId = response.data?.user?.id;
+      const defaultDoctor = {
+        name: 'default',
+        specialty: 'default',
+        userId: doctorId,
+      }
+      await apiClient.post('/doctors/create', defaultDoctor);
+      console.log(`Doctor registrado con ID: ${doctorId}`);
       setMessage('Doctor Añadido.');
       setIsSuccess(true);
     } catch (err) {
@@ -21,7 +29,6 @@ const Register = () => {
     }
   };
 
-  // Función para navegar al home sin completar el registro
   const goToHome = () => {
     navigate('/');
   };

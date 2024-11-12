@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/list', authenticate, getDoctors);
 router.get('/edit/:id', authenticate, getDoctors);
-router.post('/', authenticate, isAdmin, createDoctor); // Solo admins
+router.post('/create', authenticate, isAdmin, createDoctor); // Solo admins
 router.put('/update/:id', authenticate, updateDoctor); // Solo admins
 router.delete('/:id', authenticate, isAdmin, deleteDoctor); // Solo admins
 

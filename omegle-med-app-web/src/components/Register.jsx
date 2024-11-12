@@ -12,7 +12,14 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await apiClient.post('/users/register', formData);
+      const response = await apiClient.post('/users/register', formData);
+      const pacienteId = response.data?.user?.id;
+      const defaultPaciente = {
+        name: 'default',
+        birthDate: '2000-01-01 ',
+        userId: pacienteId,
+      }
+      await apiClient.post('/patient/create', defaultPaciente);
       setMessage('Registro exitoso. Ahora puedes iniciar sesión.');
       setIsSuccess(true);
     } catch (err) {
