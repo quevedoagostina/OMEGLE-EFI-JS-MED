@@ -21,7 +21,6 @@ const Register = () => {
     }
   };
 
-  // Función para navegar al home sin completar el registro
   const goToHome = () => {
     navigate('/');
   };
@@ -63,8 +62,6 @@ const Register = () => {
           {message}
         </p>
       )}
-      
-      {/* Botón adicional para volver al home */}
       <button onClick={goToHome} className={styles.homeButton}>
         Volver al Home
       </button>

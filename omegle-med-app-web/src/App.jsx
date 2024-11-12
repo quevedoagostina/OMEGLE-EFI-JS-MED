@@ -14,6 +14,7 @@ import EditDoctor from './components/EditDoctor';
 import DoctorAppointments from './components/DoctorAppointments';
 import EditAppointment from './components/EditAppointment';
 import Profile from './components/Profile';
+import PerfilDoctor from './components/PerfilDoctor'
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/doctor/appointments/:doctorId" element={<DoctorAppointments />} />
           <Route path="/edit_appointment/:id" element={<EditAppointment />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile_doctor/:id" element={<PerfilDoctor />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -29,9 +29,10 @@ const Navbar = () => {
           <Link to="/register_doctor" className={styles.link}>Registrar Doctor</Link>
         )}
         {user?.role === 'doctor' && (
-          <Link to={`/doctor/appointments/${user.id}`} className={styles.link}>
-            Mis Citas
-          </Link>
+          <>
+            <Link to={`/doctor/appointments/${user.id}`} className={styles.link}>Mis Citas</Link>
+            <Link to={`/profile_doctor/${user.id}`} className={styles.link}>Perfil</Link>
+          </>
         )}
         <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
       </>
